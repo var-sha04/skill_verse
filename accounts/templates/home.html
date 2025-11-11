@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillVerse | Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6dd5fa, #ffffff);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2980b9, #6dd5fa);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            color: #005f99;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: #2980b9;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #1b6fa5;
+        }
+
+        footer {
+            background: #2980b9;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SkillVerse</h1>
+        <nav>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome to SkillVerse 🌟</h2>
+        <p>Connect, Collaborate, and Grow your skills in the campus community!</p>
+        <a href="{% url 'register' %}" class="btn">Get Started</a>
+    </section>
+
+    <footer>
+        <p>© 2025 SkillVerse | Campus Skills Connect</p>
+    </footer>
+</body>
+</html>

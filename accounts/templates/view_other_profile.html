@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ profile.full_name }} | SkillVerse</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            padding: 40px;
+            width: 420px;
+            text-align: center;
+        }
+        .profile-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        h2 {
+            color: #0077b6;
+            margin-bottom: 10px;
+        }
+        p {
+            margin: 6px 0;
+        }
+        .skills {
+            background: #b3e5fc;
+            border-radius: 8px;
+            padding: 8px;
+            margin-top: 10px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            background: #0077b6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        a:hover {
+            background: #005f8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="{{ profile.full_name }}">
+        {% else %}
+            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Default Photo">
+        {% endif %}
+        <h2>{{ profile.full_name }}</h2>
+        <p><strong>Department:</strong> {{ profile.department }}</p>
+        <p><strong>Student ID:</strong> {{ profile.student_id }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p><strong>Experience:</strong> {{ profile.experience }}</p>
+        <div class="skills">
+            <strong>Skills:</strong> {{ profile.skills }}
+        </div>
+        <p><strong>About:</strong> {{ profile.about }}</p>
+        {% if profile.certificate %}
+            <p><a href="{{ profile.certificate.url }}" target="_blank">View Certificate</a></p>
+        {% endif %}
+        <a href="{% url 'discover_skills_explore' %}">← Back to Discover</a>
+    </div>
+</body>
+</html>

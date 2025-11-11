@@ -1,0 +1,19 @@
+{% load static %}
+{% for msg in messages %}
+  <div class="message-wrapper {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+    {% if msg.sender != request.user %}
+      <img src="{% if msg.sender.userprofile.photo %}{{ msg.sender.userprofile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile">
+    {% endif %}
+
+    <div class="message {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+      <p>{{ msg.content }}</p>
+      <div class="timestamp">{{ msg.timestamp|date:"H:i" }}</div>
+    </div>
+
+    {% if msg.sender == request.user %}
+      <img src="{% if msg.sender.userprofile.photo %}{{ msg.sender.userprofile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile">
+    {% endif %}
+  </div>
+{% empty %}
+  <p style="text-align:center;color:gray;">No messages yet</p>
+{% endfor %}

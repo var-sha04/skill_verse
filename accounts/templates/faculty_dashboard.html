@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Faculty Dashboard</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .dashboard {
+      max-width: 800px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .dashboard img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #007bff;
+    }
+    h2 {
+      margin-top: 15px;
+      color: #333;
+    }
+    p {
+      color: #555;
+      margin: 5px 0;
+    }
+    .info {
+      margin: 15px 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: #075E54;
+      color: white;
+      text-decoration: none;
+      margin: 5px;
+    }
+    .btn:hover {
+      background: #0b8f6f;
+    }
+    .edit-btn {
+      background: #007bff;
+    }
+    .edit-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <img src="{% if profile.photo %}{{ profile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile">
+    <h2>{{ profile.full_name }}</h2>
+    <p><strong>Department:</strong> {{ profile.department }}</p>
+    <p><strong>Subjects:</strong> {{ profile.subjects_taught }}</p>
+
+    {% if profile.experience %}
+      <p><strong>Experience:</strong> {{ profile.experience }}</p>
+    {% endif %}
+    {% if profile.about %}
+      <p><strong>About:</strong> {{ profile.about }}</p>
+    {% endif %}
+
+    <div class="info">
+      <a href="{% url 'edit_faculty' %}" class="btn edit-btn">✏️ Edit Profile</a>
+      <a href="{% url 'faculty_list' %}" class="btn">👩‍🏫 View All Faculty</a>
+      <a href="{% url 'discover_skills_explore' %}" class="btn">🌐 Explore Students</a>
+    </div>
+  </div>
+</body>
+</html>

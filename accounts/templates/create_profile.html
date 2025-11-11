@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Profile | SkillVerse</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0faff, #b3ecff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-form {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            padding: 40px 35px;
+            width: 480px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 25px;
+        }
+
+        .input-field {
+            margin-bottom: 18px;
+        }
+
+        .input-field label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .input-field input, 
+        .input-field textarea, 
+        .input-field select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field input:focus, 
+        .input-field textarea:focus, 
+        .input-field select:focus {
+            border-color: #2980b9;
+        }
+
+        button {
+            width: 100%;
+            background: #2980b9;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1f6391;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-form">
+        <h2>Create Your Profile</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'create_profile' %}">
+            {% csrf_token %}
+            
+            <div class="input-field">
+                <label>Full Name</label>
+                <input type="text" name="full_name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="input-field">
+                <label>Student ID</label>
+                <input type="text" name="student_id" placeholder="Enter your student ID">
+            </div>
+
+            <div class="input-field">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-field">
+                <label>Role</label>
+                <select name="role" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="student">Student</option>
+                    <option value="faculty">Faculty</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="input-field">
+                <label>Previous Education</label>
+                <input type="text" name="previous_education" placeholder="e.g., B.Sc. in Mathematics">
+            </div>
+
+            <div class="input-field">
+                <label>Current Education</label>
+                <input type="text" name="current_education" placeholder="e.g., MCA, 2nd Year">
+            </div>
+
+            <div class="input-field">
+                <label>Department</label>
+                <input type="text" name="department" placeholder="e.g., Computer Science">
+            </div>
+
+            <div class="input-field">
+                <label>About</label>
+                <textarea name="about" rows="3" placeholder="Write something about yourself..."></textarea>
+            </div>
+
+            <div class="input-field">
+                <label>Skills</label>
+                <textarea name="skills" rows="2" placeholder="e.g., Python, Machine Learning, Design"></textarea>
+            </div>
+
+            <div class="input-field">
+                <label>Experience</label>
+                <textarea name="experience" rows="2" placeholder="e.g., 1-year internship at XYZ Company"></textarea>
+            </div>
+
+            <div class="input-field">
+                <label>Upload Photo</label>
+                <input type="file" name="photo" accept="image/*">
+            </div>
+
+            <div class="input-field">
+                <label>Upload Certificate</label>
+                <input type="file" name="certificate" accept=".pdf,.jpg,.png">
+            </div>
+
+            <button type="submit">Save Profile</button>
+
+            <div class="back-link">
+                <a href="{% url 'main' %}">← Back to Main Page</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

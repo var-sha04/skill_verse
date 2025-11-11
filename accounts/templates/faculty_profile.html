@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ faculty.full_name }} - Profile</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .profile-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    .profile-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid #007bff;
+    }
+    h2 {
+      margin-bottom: 5px;
+      color: #222;
+    }
+    p {
+      color: #555;
+      margin: 5px 0;
+    }
+    .chat-btn, .edit-btn {
+      display: inline-block;
+      background: #075E54;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 14px;
+      margin: 10px 5px;
+    }
+    .edit-btn { background: #007bff; }
+    .chat-btn:hover { background: #0b8f6f; }
+    .edit-btn:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <img src="{% if faculty.photo %}{{ faculty.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile">
+    <h2>{{ faculty.full_name }}</h2>
+    <p><strong>Department:</strong> {{ faculty.department }}</p>
+    <p><strong>Subjects Taught:</strong> {{ faculty.subjects_taught }}</p>
+    {% if faculty.experience %}
+      <p><strong>Experience:</strong> {{ faculty.experience }}</p>
+    {% endif %}
+    {% if faculty.about %}
+      <p><strong>About:</strong> {{ faculty.about }}</p>
+    {% endif %}
+    
+    <div>
+      <a href="{% url 'chat' faculty.user.username %}" class="chat-btn">💬 Chat</a>
+      {% if request.user == faculty.user %}
+        <a href="{% url 'edit_faculty' %}" class="edit-btn">✏️ Edit Profile</a>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

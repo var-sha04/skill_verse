@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Users | SkillVerse</title>
+  <style>
+    body { font-family:'Poppins', sans-serif; background:#f4f8fb; text-align:center; padding:40px; }
+    input { width:300px; padding:10px; border:1px solid #2980b9; border-radius:8px; }
+    .user-card { background:white; margin:10px auto; width:320px; padding:15px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    a { text-decoration:none; color:#2980b9; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Search Users</h1>
+  <form method="GET">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search by name...">
+  </form>
+
+  {% for user in users %}
+    <div class="user-card">
+      <p><strong>{{ user.userprofile.full_name }}</strong></p>
+      <a href="{% url 'chat' user.id %}">💬 Chat</a>
+    </div>
+  {% empty %}
+    <p>No users found.</p>
+  {% endfor %}
+</body>
+</html>

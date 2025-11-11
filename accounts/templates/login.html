@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Skills Connect | Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #dfeef9, #6dd5fa);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #2980b9;
+            font-size: 28px;
+        }
+
+        .login-container p {
+            margin-bottom: 25px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .input-field {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-field input:focus {
+            border-color: #2980b9;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #2980b9;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #1f6391;
+        }
+
+        .register-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Skill Verse</h1>
+        <p>Sign in to discover and share your talents</p>
+        {% if messages %}
+            <div style="margin-bottom: 15px;">
+                {% for message in messages %}
+                    <div style="
+                        background-color: {% if message.tags == 'success' %}#d4edda{% elif message.tags == 'error' %}#f8d7da{% else %}#cce5ff{% endif %};
+                        color: {% if message.tags == 'success' %}#155724{% elif message.tags == 'error' %}#721c24{% else %}#004085{% endif %};
+                        padding: 10px;
+                        border-radius: 8px;
+                        font-weight: bold;
+                        margin-bottom: 10px;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="input-field">
+                <input type="text" name="college_id" placeholder="College ID" required>
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button class="login-btn" type="submit">Login</button>
+            <div class="register-link">
+                <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Profile | SkillVerse</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            width: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2980b9;
+            margin-bottom: 20px;
+        }
+
+        .profile-info p {
+            margin: 8px 0;
+            color: #333;
+        }
+
+        .profile-photo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .profile-photo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>{{ profile.full_name }}</h2>
+
+        <div class="profile-photo">
+            {% if profile.photo %}
+                <img src="{{ profile.photo.url }}" alt="Profile Photo">
+            {% else %}
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Default Photo">
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <p><strong>Student ID:</strong> {{ profile.student_id }}</p>
+            <p><strong>Email:</strong> {{ profile.email }}</p>
+            <p><strong>Role:</strong> {{ profile.role }}</p>
+            <p><strong>Department:</strong> {{ profile.department }}</p>
+            <p><strong>Previous Education:</strong> {{ profile.previous_education }}</p>
+            <p><strong>Current Education:</strong> {{ profile.current_education }}</p>
+            <p><strong>Skills:</strong> {{ profile.skills }}</p>
+            <p><strong>Experience:</strong> {{ profile.experience }}</p>
+            <p><strong>About:</strong> {{ profile.about }}</p>
+
+            {% if profile.certificate %}
+                <p><strong>Certificate:</strong> 
+                    <a href="{{ profile.certificate.url }}" target="_blank">View Certificate</a>
+                </p>
+            {% endif %}
+        </div>
+        <a href="{% url 'edit_profile' %}" 
+            style="display:inline-block; 
+                    text-align:center; 
+                    margin-top:15px; 
+                    padding:10px 20px; 
+                    background:#2980b9; 
+                    color:white; 
+                    border-radius:8px; 
+                    text-decoration:none; 
+                    transition:0.3s;">
+            ✏️ Edit Profile
+        </a>
+
+        <a href="{% url 'main' %}">← Back to Main</a>
+    </div>
+</body>
+</html>

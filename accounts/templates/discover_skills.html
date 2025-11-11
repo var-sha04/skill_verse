@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Skills | SkillVerse</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, #2980b9, #6dd5fa);
+            padding: 15px 50px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+        .profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            color: #2980b9;
+        }
+        .skills {
+            background: #eef6fc;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SkillVerse</h1>
+    <nav>
+        <a href="{% url 'main' %}">Home</a>
+        <a href="{% url 'profile' %}">Your Profile</a>
+        <a href="{% url 'discover_skills' %}">Discover Skills</a>
+        <a href="#">Post Opportunities</a>
+        <a href="#">Messages</a>
+        <a href="{% url 'login' %}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Discover Campus Talents 🌟</h2>
+
+    <div class="profiles">
+        {% for profile in profiles %}
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" width="80" height="80">
+            <h3>{{ profile.full_name }}</h3>
+            <p><strong>Role:</strong> {{ profile.role }}</p>
+            <div class="skills">{{ profile.skills }}</div>
+        </div>
+        {% empty %}
+        <p>No profiles found yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat with {{ other_user.userprofile.full_name }}</title>
+  {% load static %}
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #e5ddd5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 420px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 90vh;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .chat-header {
+      background: #2980b9;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      background: #ECE5DD;
+    }
+
+    .message {
+      max-width: 45%;
+      margin: 3px 0;
+      padding: 6px 8px;
+      border-radius: 8px;
+      position: relative;
+      word-wrap: break-word;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .sent {
+      background: #d4d6dc;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    .received {
+      background: #f6f8f8;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: gray;
+      text-align: right;
+      margin-top: 3px;
+    }
+
+    .chat-input {
+      display: flex;
+      background: #f0f0f0;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .chat-input button:hover {
+      background: #2980b9;
+    }
+
+    /* Chat header user info */
+    .chat-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    }
+
+    .chat-user-photo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    }
+/* Message layout with profile pic */
+    .message-wrapper {
+      display: flex;
+      align-items: flex-end;
+      margin: 3px 0;
+    }
+
+    .message-wrapper.sent {
+      justify-content: flex-end;
+    }
+
+    .message-wrapper.received {
+      justify-content: flex-start;
+    }
+
+    .message-wrapper img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 8px;
+      border: 1px solid #ddd;
+    }
+    .message-wrapper img {
+      transition: opacity 0.2s ease-in-out;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <div class="chat-user">
+        <img src="{% if other_user.userprofile.photo %}{{ other_user.userprofile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
+             alt="Profile Picture" class="chat-user-photo">
+        <span>{{ other_user.userprofile.full_name }}</span>
+
+    </div>
+  </div>
+
+    <div class="chat-box" id="chat-box">
+        {% load static %}
+        {% for msg in messages %}
+          <div class="message-wrapper {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+            {% if msg.sender != request.user %}
+              <img src="{% if msg.sender.userprofile.photo %}{{ msg.sender.userprofile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile">
+            {% endif %}
+
+            <div class="message {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+              <p>{{ msg.content }}</p>
+              <div class="timestamp">{{ msg.timestamp|date:"H:i" }}</div>
+            </div>
+
+            {% if msg.sender == request.user %}
+              <img src="{% if msg.sender.userprofile.photo %}{{ msg.sender.userprofile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile">
+            {% endif %}
+          </div>
+        {% empty %}
+          <p style="text-align:center;color:gray;">No messages yet</p>
+        {% endfor %}
+
+    </div>
+
+    <form method="POST" class="chat-input">
+      {% csrf_token %}
+      <input type="text" name="content" placeholder="Type a message..." required autocomplete="off">
+      <button type="submit">➤</button>
+    </form>
+  </div>
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const form = document.querySelector("form.chat-input");
+    const input = form.querySelector("input[name='content']");
+
+    // Scroll to bottom on load
+    chatBox.scrollTo({ top: chatBox.scrollHeight, behavior: "smooth" });
+
+    // Send message without reloading
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const content = input.value.trim();
+      if (!content) return;
+
+      fetch(window.location.href, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+          "X-Requested-With": "XMLHttpRequest",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `content=${encodeURIComponent(content)}`,
+      })
+        .then((res) => {
+          if (res.ok) {
+            input.value = "";
+            refreshChat(); // instantly reload chat
+          }
+        })
+        .catch((err) => console.error("Error sending message:", err));
+    });
+
+    // Auto-refresh every 2 seconds
+    function refreshChat() {
+      fetch(window.location.href + "?ajax=1", {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      })
+        .then((res) => res.text())
+        .then((html) => {
+          const scrollAtBottom =
+            chatBox.scrollHeight - chatBox.scrollTop <= chatBox.clientHeight + 10;
+          chatBox.innerHTML = html;
+          if (scrollAtBottom) {
+            chatBox.scrollTop = chatBox.scrollHeight;
+          }
+        })
+        .catch((err) => console.error("Chat refresh error:", err));
+    }
+
+    // Refresh messages every 2 seconds
+    setInterval(refreshChat, 2000);
+</script>
+
+
+
+</body>
+</html>

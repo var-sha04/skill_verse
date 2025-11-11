@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillVerse | Campus Skills Connect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            color: #333;
+        }
+
+        /* Navbar */
+        header {
+            background: linear-gradient(135deg, #2980b9, #6dd5fa);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffe;
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #6dd5fa, #ffffff);
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            color: #1e6fa7;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #333;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 60px 50px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2980b9;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>SkillVerse</h1>
+        <nav>
+            <a href="{% url 'main' %}">Home</a>
+            <a href="{% url 'profile' %}">Your Profile</a>
+            <a href="{% url 'discover_skills' %}">Discover Skills</a>
+
+            <a href="#">Post Opportunities</a>
+            <a href="{% url 'messages' %}">Messages</a>
+            <a href="{% url 'login' %}">Logout</a>
+        </nav>
+
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Welcome to SkillVerse 🌟</h2>
+        <p>Connect, Collaborate, and Grow! SkillVerse helps you discover talented students, showcase your abilities, and learn new skills within your campus community.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Profile">
+            <h3>Create Your Profile</h3>
+            <p>Showcase your skills, achievements, and interests. Build a verified campus portfolio.</p>
+            <a href="{% url 'create_profile' %}" 
+                style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2980b9; color:white; text-decoration:none; border-radius:8px;">
+                Create Your Profile
+            </a>
+        </div>
+
+
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/906/906175.png" alt="Discover">
+            <h3>Discover Skills</h3>
+            <p>Explore trending skills and find inspiration from your campus community!</p>
+
+            <a href="{% url 'discover_skills_explore' %}" 
+                style="display:inline-block; margin-top:10px; padding:8px 15px; background:#2980b9; color:white; text-decoration:none; border-radius:8px;">
+                Discover Skills
+            </a>
+        </div>
+

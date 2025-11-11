@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | SkillVerse</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #80deea);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .edit-form {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            width: 450px;
+        }
+        h2 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 25px;
+        }
+        .input-field {
+            margin-bottom: 15px;
+        }
+        .input-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .input-field input, 
+        .input-field textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            outline: none;
+        }
+        .input-field input:focus, 
+        .input-field textarea:focus {
+            border-color: #00796b;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #004d40;
+        }
+        .back {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .back a {
+            color: #00796b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-form">
+        <h2>Edit Your Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="input-field">
+                <label>Full Name</label>
+                <input type="text" name="full_name" value="{{ profile.full_name }}" required>
+            </div>
+
+            <div class="input-field">
+                <label>Student ID</label>
+                <input type="text" name="student_id" value="{{ profile.student_id }}">
+            </div>
+
+            <div class="input-field">
+                <label>Previous Education</label>
+                <input type="text" name="previous_education" value="{{ profile.previous_education }}">
+            </div>
+
+            <div class="input-field">
+                <label>Current Education</label>
+                <input type="text" name="current_education" value="{{ profile.current_education }}">
+            </div>
+
+            <div class="input-field">
+                <label>Department</label>
+                <input type="text" name="department" value="{{ profile.department }}">
+            </div>
+
+            <div class="input-field">
+                <label>About</label>
+                <textarea name="about" rows="3">{{ profile.about }}</textarea>
+            </div>
+
+            <div class="input-field">
+                <label>Skills</label>
+                <textarea name="skills" rows="3">{{ profile.skills }}</textarea>
+            </div>
+
+            <div class="input-field">
+                <label>Experience</label>
+                <textarea name="experience" rows="3">{{ profile.experience }}</textarea>
+            </div>
+
+            <div class="input-field">
+                <label>Profile Photo</label>
+                <input type="file" name="photo">
+            </div>
+
+            <div class="input-field">
+                <label>Certificate Upload</label>
+                <input type="file" name="certificate">
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <div class="back">
+            <a href="{% url 'profile' %}">← Back to Profile</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discover Skills | SkillVerse</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #b3e5fc);
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #0077b6;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        input[type="text"], select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #0077b6;
+            font-size: 15px;
+            outline: none;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 18px;
+            background: #0077b6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #005f8d;
+        }
+
+        .profiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            justify-items: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            color: #0077b6;
+            margin-bottom: 5px;
+        }
+
+        .skills {
+            background: #e0f7fa;
+            color: #0077b6;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            background: #0077b6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #005f8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌟 Discover Talented Students 🌟</h1>
+
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="Search by name, skill, or department..." value="{{ query }}">
+        <button type="submit">🔍 Search</button>
+    </form>
+
+
+    {% if profiles %}
+        <div class="profiles">
+            {% for profile in profiles %}
+                <a href="{% url 'view_other_profile' profile.id %}" class="card">
+
+                    {% if profile.photo %}
+                        <img src="{{ profile.photo.url }}" alt="{{ profile.full_name }}">
+                    {% else %}
+                        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Default Photo">
+                    {% endif %}
+                    <h3>{{ profile.full_name }}</h3>
+                    <p><strong>Department:</strong> {{ profile.department }}</p>
+                    <div class="skills">
+                        <strong>Skills:</strong> {{ profile.skills }}
+                    </div>
+                    </a>
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No matching profiles found.</p>
+    {% endif %}
+
+    <a href="{% url 'main' %}" class="back-btn">← Back to Main</a>
+</body>
+</html>

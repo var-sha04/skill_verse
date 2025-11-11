@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <title>Messages | SkillVerse</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; background:#f4f8fb; padding:40px; }
+        h1 { color:#2980b9; text-align:center; }
+
+        /* Search bar */
+        form { text-align:center; margin-bottom:30px; }
+        input[type=text] {
+            padding:10px;
+            width:300px;
+            border-radius:8px;
+            border:1px solid #2980b9;
+            font-size:16px;
+        }
+        button {
+            background:#2980b9;
+            color:white;
+            padding:10px 20px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        /* User list */
+        .user-list { margin-top:20px; text-align:center; }
+        .user-item {
+            background:white;
+            margin:10px auto;
+            padding:10px;
+            border-radius:8px;
+            width:320px;
+            box-shadow:0 2px 6px rgba(0,0,0,0.1);
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+        .user-item img {
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            object-fit:cover;
+            border:2px solid #2980b9;
+        }
+        .user-item a {
+            text-decoration:none;
+            color:#333;
+            display:flex;
+            align-items:center;
+            gap:12px;
+            width:100%;
+        }
+        .user-item strong {
+            font-size:16px;
+            color:#2980b9;
+        }
+        .user-item small {
+            color:#555;
+        }
+
+        /* Container for messages */
+        .container { display:flex; gap:40px; justify-content:center; margin-top:30px; flex-wrap:wrap; }
+        .box { background:white; padding:20px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); width:350px; }
+        .msg { border-bottom:1px solid #eee; padding:10px 0; }
+        .msg:last-child { border-bottom:none; }
+        .msg p { margin:5px 0; }
+        a.btn { display:inline-block; background:#2980b9; color:white; padding:10px 15px; border-radius:8px; text-decoration:none; margin-top:20px; }
+    </style>
+</head>
+<body>
+    <h1>📩 Your Messages</h1>
+
+    <!-- 🔍 Search bar -->
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="Search by name or username..." value="{{ query }}">
+        <button type="submit">🔍 Search</button>
+    </form>
+
+    <!-- 🔎 Search results -->
+    {% if users %}
+        <div class="user-list">
+            <h3>Search Results:</h3>
+            {% for user in users %}
+                <div class="user-item">
+                    <a href="{% url 'chat' user.username %}">
+                        {% if user.userprofile.photo %}
+                            <img src="{{ user.userprofile.photo.url }}" alt="Profile Picture">
+                        {% else %}
+                            <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture">
+                        {% endif %}
+
+                        <div>
+                            <strong>{{ user.userprofile.full_name }}</strong><br>
+                            <small>@{{ user.username }}</small>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p>No users found.</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="box">
+            <h3>Received Messages</h3>
+            {% for msg in received %}
+                <div class="msg">
+                    <p><strong>{{ msg.sender.username }}</strong>: {{ msg.content }}</p>
+                    <small>{{ msg.timestamp }}</small>
+                </div>
+            {% empty %}
+                <p>No messages received yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="box">
+            <h3>Sent Messages</h3>
+            {% for msg in sent %}
+                <div class="msg">
+                    <p><strong>To {{ msg.receiver.username }}</strong>: {{ msg.content }}</p>
+                    <small>{{ msg.timestamp }}</small>
+                </div>
+            {% empty %}
+                <p>No messages sent yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="text-align:center;">
+        <a href="{% url 'send_message' %}" class="btn">✉️ Send New Message</a>
+        <a href="{% url 'main' %}" class="btn" style="background:#27ae60;">🏠 Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send Message | SkillVerse</title>
+    <style>
+        body { font-family:'Poppins',sans-serif; background:#f4f8fb; text-align:center; padding:40px; }
+        form { background:white; padding:30px; display:inline-block; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+        input, textarea { width:300px; padding:10px; margin:10px 0; border:1px solid #2980b9; border-radius:8px; font-size:15px; }
+        button { background:#2980b9; color:white; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; }
+        button:hover { background:#1f6693; }
+        .error { color:red; }
+    </style>
+</head>
+<body>
+    <h1>✉️ Send a Message</h1>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="receiver" placeholder="Receiver Username" required><br>
+        <textarea name="content" rows="4" placeholder="Type your message..." required></textarea><br>
+        <button type="submit">Send Message</button>
+    </form>
+    <br><a href="{% url 'messages' %}" style="color:#2980b9;">⬅ Back to Messages</a>
+</body>
+</html>
