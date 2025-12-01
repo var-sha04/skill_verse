@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+```
+<link rel="stylesheet" href="{% static 'adminpanel/css/style.css' %}">
+
+<style>
+    /* Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff0f0; /* light pastel red background */
+    }
+
+    .login-container {
+        background-color: #ffffff; /* white card */
+        padding: 50px 40px;
+        border-radius: 15px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Decorative small red circle in background */
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 120px;
+        height: 120px;
+        background-color: #ff4d4d;
+        border-radius: 50%;
+        opacity: 0.15;
+    }
+
+    .login-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ff4d4d;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .login-container form {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+    }
+
+    .login-container label {
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .login-container input {
+        padding: 14px 12px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        background-color: #fff5f5;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .login-container input:focus {
+        border-color: #ff4d4d;
+        outline: none;
+        box-shadow: 0 0 8px rgba(255, 77, 77, 0.25);
+    }
+
+    .login-container button {
+        padding: 14px;
+        background-color: #ff4d4d;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-container button:hover {
+        background-color: #ff6666;
+        transform: translateY(-2px);
+    }
+
+    .message {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #d32f2f;
+        font-weight: 500;
+    }
+
+    @media (max-width: 480px) {
+        .login-container {
+            padding: 35px 25px;
+        }
+
+        .login-container h1 {
+            font-size: 24px;
+        }
+
+        .login-container input, .login-container button {
+            font-size: 15px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+
+```
+<div class="login-container">
+    <h1>Admin Login</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+```
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="{% static 'adminpanel/css/style.css' %}">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+```
+    body {
+        background: #fdfdfd;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 80px;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #000;
+        padding: 15px 30px;
+        text-align: center;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+
+    header h1 {
+        color: #ff7f7f;
+        font-size: 26px;
+    }
+
+    .form-container {
+        background: #fff;
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 500px;
+        margin-top: 100px;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        color: #000;
+        margin-bottom: 25px;
+        font-size: 24px;
+    }
+
+    .form-container a.back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 8px 16px;
+        background: #ff7f7f;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background 0.3s;
+    }
+
+    .form-container a.back-link:hover {
+        background: #ff9999;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 6px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    input {
+        padding: 12px;
+        margin-bottom: 18px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+        border-color: #ff7f7f;
+        box-shadow: 0 0 5px rgba(255,127,127,0.3);
+        outline: none;
+    }
+
+    button {
+        padding: 14px;
+        background: #ff7f7f;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+        background: #ff9999;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        .form-container h2 {
+            font-size: 20px;
+        }
+
+        input, button {
+            font-size: 15px;
+        }
+
+        .form-container a.back-link {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+
+```
+<header>
+    <h1>Add Student</h1>
+</header>
+
+<div class="form-container">
+    <h2>Add Student</h2>
+    <a href="{% url 'view_students' %}" class="back-link">Back to Students</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Full Name:</label>
+        <input type="text" name="full_name" required>
+
+        <label>College ID:</label>
+        <input type="text" name="college_id" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Department:</label>
+        <input type="text" name="department">
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Add Student</button>
+    </form>
+</div>
+```
+
+</body>
+</html>

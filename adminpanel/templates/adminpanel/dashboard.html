@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'adminpanel/css/style.css' %}">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+```
+    body {
+        background: #fdfdfd; /* soft white */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 60px;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #000; /* black header */
+        padding: 15px 30px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        z-index: 10;
+        text-align: center;
+    }
+
+    header h1 {
+        color: #ff7f7f; /* pastel red text */
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    .dashboard-box {
+        background: #fff;
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 520px;
+        margin-top: 100px;
+    }
+
+    .dashboard-box h2 {
+        color: #000;
+        margin-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .dashboard-box p {
+        font-size: 16px;
+        margin-bottom: 12px;
+        color: #333;
+    }
+
+    .dashboard-box hr {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 20px 0;
+    }
+
+    .dashboard-box h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #000;
+    }
+
+    .dashboard-box a {
+        display: inline-block;
+        margin: 6px 5px;
+        padding: 10px 16px;
+        background: #ff7f7f; /* pastel red buttons */
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    .dashboard-box a:hover {
+        background: #ff9999; /* lighter red on hover */
+    }
+
+    .dashboard-box a.logout {
+        background: #000;
+    }
+
+    .dashboard-box a.logout:hover {
+        background: #333;
+    }
+
+    @media (max-width: 480px) {
+        .dashboard-box {
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        .dashboard-box h2 {
+            font-size: 20px;
+        }
+
+        .dashboard-box h3 {
+            font-size: 16px;
+        }
+
+        .dashboard-box a {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+
+```
+<header>
+    <h1>Admin Dashboard</h1>
+</header>
+
+<div class="dashboard-box">
+    <h2>Welcome, Admin</h2>
+
+    <p>Total Students: <strong>{{ total_students }}</strong></p>
+    <p>Total Faculty: <strong>{{ total_faculty }}</strong></p>
+
+    <hr>
+
+    <h3>Manage</h3>
+    <a href="{% url 'view_students' %}">View Students</a>
+    <a href="{% url 'add_student' %}">Add Student</a>
+    <a href="{% url 'view_faculty' %}">View Faculty</a>
+    <a href="{% url 'add_faculty' %}">Add Faculty</a>
+
+    <a href="{% url 'admin_logout' %}" class="logout">Logout</a>
+</div>
+```
+
+</body>
+</html>

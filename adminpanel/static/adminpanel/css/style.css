@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #2c3e50;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.dashboard-box {
+    width: 300px;
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+a {
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    text-decoration: none;
+    background: #3498db;
+    color: white;
+    border-radius: 5px;
+}
+
+a:hover {
+    background: #2980b9;
+}

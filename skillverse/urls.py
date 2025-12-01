@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path("__reload__/", include("django_browser_reload.urls")),  # 👈 Add this
+    path('adminpanel/', include('adminpanel.urls')),  # Include the adminpanel app URLs
 
 ]
 

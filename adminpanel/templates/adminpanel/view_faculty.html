@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Members</title>
+    <link rel="stylesheet" href="{% static 'adminpanel/css/style.css' %}">
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+```
+    body {
+        background: #fdfdfd;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 80px;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #000;
+        padding: 15px 30px;
+        text-align: center;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+
+    header h1 {
+        color: #ff7f7f;
+        font-size: 26px;
+    }
+
+    .table-container {
+        background: #fff;
+        padding: 30px 25px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 900px;
+        margin-top: 100px;
+    }
+
+    .table-container h2 {
+        text-align: center;
+        color: #000;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    .table-container a {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 8px 16px;
+        background: #ff7f7f;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background 0.3s;
+    }
+
+    .table-container a:hover {
+        background: #ff9999;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    th {
+        background: #000;
+        color: #ff7f7f;
+        font-weight: 600;
+    }
+
+    td a {
+        margin-right: 8px;
+        padding: 6px 12px;
+        background: #ff7f7f;
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s;
+    }
+
+    td a:hover {
+        background: #ff9999;
+    }
+
+    @media (max-width: 768px) {
+        table, th, td {
+            font-size: 14px;
+        }
+
+        .table-container {
+            padding: 20px 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 22px;
+        }
+
+        .table-container h2 {
+            font-size: 20px;
+        }
+
+        td a {
+            font-size: 12px;
+            padding: 5px 8px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+
+```
+<header>
+    <h1>Faculty Members</h1>
+</header>
+
+<div class="table-container">
+    <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+    <a href="{% url 'add_faculty' %}">Add Faculty</a>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>College ID</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        {% for faculty in faculty_list %}
+        <tr>
+            <td>{{ faculty.full_name }}</td>
+            <td>{{ faculty.college_id }}</td>
+            <td>{{ faculty.email }}</td>
+            <td>{{ faculty.department }}</td>
+            <td>
+                <a href="{% url 'edit_faculty' faculty.id %}">Edit</a>
+                <a href="{% url 'delete_faculty' faculty.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+```
+
+</body>
+</html>
